@@ -85,20 +85,23 @@ const templates: HabitTemplate[] = [
 ];
 
 export function SettingsPanel() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
   const dispatch = useAppDispatch();
   const categories = useAppSelector((s) => s.habits.categories);
   const habits = useAppSelector((s) => s.habits.habits);
   const entries = useAppSelector((s) => s.habits.entries);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [meEmail, setMeEmail] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
 
-  const categoriesByName = useMemo(() => {
-    const map = new Map<string, string>();
-    for (const c of categories) map.set(c.name.toLowerCase(), c.id);
-    return map;
+  const categoriesByName = useMemo(
+    () =>
+      new Map(
+        categories.map((c) => [c.name.toLowerCase(), c.id] as [string, string])
+      ),
+    [categories]
+  );
   }, [categories]);
 
   async function refreshMe() {
@@ -162,10 +165,10 @@ export function SettingsPanel() {
     void refreshMe();
   }, []);
 
-  async function doSetup() {
+  async function doRegister() {
     setBusy(true);
     try {
-      const res = await fetch("/api/auth/setup", {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -173,13 +176,13 @@ export function SettingsPanel() {
       });
 
       const data = (await res.json().catch(() => null)) as { error?: string } | null;
-      if (!res.ok) throw new Error(data?.error ?? "Setup failed");
+      if (!res.ok) throw new Error(data?.error ?? "Registration failed");
 
       await refreshMe();
       await syncAfterAuth();
       toast.success("Account created and synced");
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Setup failed");
+      toast.error(e instanceof Error ? e.message : "Registration failed");
     } finally {
       setBusy(false);
     }
@@ -303,15 +306,22 @@ export function SettingsPanel() {
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          <Button size="sm" variant="primary" onClick={doSetup} disabled={busy}>
-            Setup
+          <Button 
+            size="sm" 
+            variant="ghost" 
+            onClick={() => setIsRegistering(!isRegistering)} 
+            disabled={busy}
+          >
+            {isRegistering ? "Login" : "Register"}
           </Button>
-          <Button size="sm" variant="secondary" onClick={doLogin} disabled={busy}>
-            Login
+          <Button size="sm" variant="primary" onClick={isRegistering ? doRegister : doLogin} disabled={busy}>
+            {isRegistering ? "Register" : "Login"}
           </Button>
-          <Button size="sm" variant="ghost" onClick={doLogout} disabled={busy}>
-            Logout
-          </Button>
+          {meEmail && (
+            <Button size="sm" variant="ghost" onClick={doLogout} disabled={busy}>
+              Logout
+            </Button>
+          )}
           <Button size="sm" variant="secondary" onClick={doPull} disabled={busy}>
             Pull
           </Button>

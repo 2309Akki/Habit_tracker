@@ -22,9 +22,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
 
-  const existingUsers = await prisma.user.count();
-  if (existingUsers > 0) {
-    return NextResponse.json({ error: "Setup already completed" }, { status: 409 });
+  // Check if user already exists
+  const existingUser = await prisma.user.findUnique({
+    where: { email: parsed.data.email.toLowerCase() }
+  });
+  if (existingUser) {
+    return NextResponse.json({ error: "User already exists" }, { status: 409 });
   }
 
   const passwordHash = await bcrypt.hash(parsed.data.password, 10);
