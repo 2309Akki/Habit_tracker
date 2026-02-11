@@ -1,66 +1,90 @@
-// FIXED Sync Replace API - Your Schema
-import { NextRequest, NextResponse } from 'next/server';
-import { sessions, userData } from '@/lib/simple-store';
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { sessionCookieName, userData, sessions } from "@/lib/simple-store";
+
+const HabitFrequencySchema = z.union([z.literal("daily"), z.literal("weekly"), z.literal("monthly")]);
+const EntryStatusSchema = z.union([z.literal("done"), z.literal("missed"), z.literal("skipped")]);
+
+const CategorySchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  color: z.string().min(1),
+});
+
+const HabitSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  description: z.string(),
+  categoryId: z.string().min(1),
+  frequency: HabitFrequencySchema,
+  weeklyDays: z.array(z.number()),
+  monthlyDay: z.number().nullable(),
+  color: z.string().min(1),
+  reminderTime: z.string().nullable(),
+});
+
+const EntrySchema = z.object({
+  id: z.string().min(1),
+  habitId: z.string().min(1),
+  date: z.string().min(1),
+  status: EntryStatusSchema,
+  note: z.string(),
+});
+
+const BodySchema = z.object({
+  categories: z.array(CategorySchema),
+  habits: z.array(HabitSchema),
+  entries: z.array(EntrySchema),
+});
 
 export async function POST(req: NextRequest) {
   try {
-    // Get user from session
-    const token = req.cookies.get('ht_session')?.value;
+    // Get session token from cookie
+    const token = req.cookies.get(sessionCookieName)?.value;
+    console.log('Replace - Received token:', token);
+    
     if (!token) {
-      return NextResponse.json({ error: "No session token" }, { status: 401 });
+      console.log('No token found in replace request');
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
+    // Get user from session to get their email
     const user = await sessions.get(token);
     if (!user) {
-      return NextResponse.json({ error: "Invalid session" }, { status: 401 });
+      console.log('No user found for token');
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
-    // Get data from request
-    const data = await req.json();
-    
-    console.log('🔄 SYNC - Replacing habits for user:', user.email);
-    console.log('📋 SYNC - New habits data:', data);
+    const json = await req.json();
+    const parsed = BodySchema.safeParse(json);
+    if (!parsed.success) {
+      console.log('Invalid body in replace request:', parsed.error);
+      return NextResponse.json({ error: "Invalid body" }, { status: 400 });
+    }
 
-    // Save habits with automatic sorting
-    const savedHabits = await userData.set(user.email, data);
+    // Use email as user ID for consistency
+    const userId = user.email;
+    console.log('Replace - Saving data for user:', userId);
     
-    console.log('✅ SYNC - Habits saved:', savedHabits);
+    // Add userId to all items
+    const dataWithUserId = {
+      categories: parsed.data.categories.map(cat => ({ ...cat, userId })),
+      habits: parsed.data.habits.map(habit => ({ ...habit, userId })),
+      entries: parsed.data.entries.map(entry => ({ ...entry, userId }))
+    };
     
-    return NextResponse.json({ 
-      ok: true,
-      habits: savedHabits 
+    // Save user data to persistent store
+    userData.set(userId, dataWithUserId);
+    
+    console.log('Replace - Saved user data:', {
+      categories: dataWithUserId.categories.length,
+      habits: dataWithUserId.habits.length,
+      entries: dataWithUserId.entries.length
     });
-    
+
+    return NextResponse.json({ ok: true }, { status: 200 });
   } catch (error: any) {
-    console.error('Sync replace error:', error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
-  }
-}
-
-export async function GET(req: NextRequest) {
-  try {
-    // Get user from session
-    const token = req.cookies.get('ht_session')?.value;
-    if (!token) {
-      return NextResponse.json({ error: "No session token" }, { status: 401 });
-    }
-
-    const user = await sessions.get(token);
-    if (!user) {
-      return NextResponse.json({ error: "Invalid session" }, { status: 401 });
-    }
-
-    // Get current habits
-    const habits = await userData.get(user.email);
-    
-    console.log('📊 SYNC - Current habits:', habits);
-    
-    return NextResponse.json({ 
-      habits: habits || []
-    });
-    
-  } catch (error: any) {
-    console.error('Sync get error:', error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    console.error('Replace error:', error.message);
+    return NextResponse.json({ error: "Sync failed" }, { status: 500 });
   }
 }

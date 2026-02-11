@@ -45,7 +45,7 @@ export async function POST(req: Request) {
 
     // Create session token
     const token = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    await sessions.set(token, user);
+    sessions.set(token, user);
     
     console.log('Login successful for:', email);
 

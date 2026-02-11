@@ -6,7 +6,7 @@ export const BodySchema = {
         success: true,
         data: data
       };
-    } catch (error: any) {
+    } catch (error) {
       return {
         success: false,
         error: (error as Error).message
