@@ -1,0 +1,484 @@
+{
+  "userData": {
+    "user__17707337788": {
+      "categories": [
+        {
+          "id": "cat1",
+          "name": "Test Category",
+          "color": "#ff0000",
+          "userId": "user__17707337788"
+        },
+        {
+          "id": "cat2",
+          "name": "Another Category",
+          "color": "#00ff00",
+          "userId": "user__17707337788"
+        }
+      ],
+      "habits": [
+        {
+          "id": "habit1",
+          "name": "Test Habit",
+          "description": "Test description",
+          "categoryId": "cat1",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#ff0000",
+          "reminderTime": null,
+          "userId": "user__17707337788"
+        }
+      ],
+      "entries": [
+        {
+          "id": "entry1",
+          "habitId": "habit1",
+          "date": "2026-02-10",
+          "status": "done",
+          "note": "Test entry",
+          "userId": "user__17707337788"
+        }
+      ]
+    },
+    "user__17707337793": {
+      "categories": [
+        {
+          "id": "cat1",
+          "name": "Health",
+          "color": "#22c55e",
+          "userId": "user__17707337793",
+          "createdAt": "2026-02-10T14:29:39.330Z",
+          "updatedAt": "2026-02-10T14:29:39.330Z"
+        },
+        {
+          "id": "cat2",
+          "name": "Study",
+          "color": "#3b82f6",
+          "userId": "user__17707337793",
+          "createdAt": "2026-02-10T14:29:39.330Z",
+          "updatedAt": "2026-02-10T14:29:39.330Z"
+        },
+        {
+          "id": "cat3",
+          "name": "Exercise",
+          "color": "#f97316",
+          "userId": "user__17707337793",
+          "createdAt": "2026-02-10T14:29:39.330Z",
+          "updatedAt": "2026-02-10T14:29:39.330Z"
+        },
+        {
+          "id": "cat4",
+          "name": "Mind",
+          "color": "#a855f7",
+          "userId": "user__17707337793",
+          "createdAt": "2026-02-10T14:29:39.330Z",
+          "updatedAt": "2026-02-10T14:29:39.330Z"
+        }
+      ],
+      "habits": [],
+      "entries": []
+    },
+    "user__17707338000": {
+      "categories": [
+        {
+          "id": "cat1",
+          "name": "Test Category",
+          "color": "#ff0000",
+          "userId": "user__17707338000"
+        },
+        {
+          "id": "cat2",
+          "name": "Another Category",
+          "color": "#00ff00",
+          "userId": "user__17707338000"
+        }
+      ],
+      "habits": [
+        {
+          "id": "habit1",
+          "name": "Test Habit",
+          "description": "Test description",
+          "categoryId": "cat1",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#ff0000",
+          "reminderTime": null,
+          "userId": "user__17707338000"
+        }
+      ],
+      "entries": [
+        {
+          "id": "entry1",
+          "habitId": "habit1",
+          "date": "2026-02-10",
+          "status": "done",
+          "note": "Test entry",
+          "userId": "user__17707338000"
+        }
+      ]
+    },
+    "user__17707338002": {
+      "categories": [
+        {
+          "id": "cat1",
+          "name": "Health",
+          "color": "#22c55e",
+          "userId": "user__17707338002",
+          "createdAt": "2026-02-10T14:30:00.237Z",
+          "updatedAt": "2026-02-10T14:30:00.237Z"
+        },
+        {
+          "id": "cat2",
+          "name": "Study",
+          "color": "#3b82f6",
+          "userId": "user__17707338002",
+          "createdAt": "2026-02-10T14:30:00.237Z",
+          "updatedAt": "2026-02-10T14:30:00.237Z"
+        },
+        {
+          "id": "cat3",
+          "name": "Exercise",
+          "color": "#f97316",
+          "userId": "user__17707338002",
+          "createdAt": "2026-02-10T14:30:00.237Z",
+          "updatedAt": "2026-02-10T14:30:00.237Z"
+        },
+        {
+          "id": "cat4",
+          "name": "Mind",
+          "color": "#a855f7",
+          "userId": "user__17707338002",
+          "createdAt": "2026-02-10T14:30:00.237Z",
+          "updatedAt": "2026-02-10T14:30:00.237Z"
+        }
+      ],
+      "habits": [],
+      "entries": []
+    },
+    "persistdata1770733857896@example.com": {
+      "categories": [
+        {
+          "id": "cat1",
+          "name": "Test Category",
+          "color": "#ff0000",
+          "userId": "persistdata1770733857896@example.com"
+        },
+        {
+          "id": "cat2",
+          "name": "Another Category",
+          "color": "#00ff00",
+          "userId": "persistdata1770733857896@example.com"
+        }
+      ],
+      "habits": [
+        {
+          "id": "habit1",
+          "name": "Test Habit",
+          "description": "Test description",
+          "categoryId": "cat1",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#ff0000",
+          "reminderTime": null,
+          "userId": "persistdata1770733857896@example.com"
+        }
+      ],
+      "entries": [
+        {
+          "id": "entry1",
+          "habitId": "habit1",
+          "date": "2026-02-10",
+          "status": "done",
+          "note": "Test entry",
+          "userId": "persistdata1770733857896@example.com"
+        }
+      ]
+    },
+    "akshaysawalgi2309@gmail.com": {
+      "categories": [
+        {
+          "id": "cat1",
+          "name": "Health",
+          "color": "#22c55e",
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "cat2",
+          "name": "Study",
+          "color": "#3b82f6",
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "cat3",
+          "name": "Exercise",
+          "color": "#f97316",
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "cat4",
+          "name": "Mind",
+          "color": "#a855f7",
+          "userId": "akshaysawalgi2309@gmail.com"
+        }
+      ],
+      "habits": [
+        {
+          "id": "habit_d6026c56-16fc-495e-89e2-01c0018cf3ea",
+          "name": "Workout",
+          "description": "Strength or cardio",
+          "categoryId": "cat3",
+          "frequency": "weekly",
+          "weeklyDays": [
+            1,
+            3,
+            5
+          ],
+          "monthlyDay": null,
+          "color": "#f97316",
+          "reminderTime": null,
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "habit_6a897ec3-292c-4a17-859a-c57c9ae9fb9b",
+          "name": "Steps 8k",
+          "description": "Walk daily",
+          "categoryId": "cat1",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#22c55e",
+          "reminderTime": null,
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "habit_844d43f7-f117-4506-a144-f5d2f6693844",
+          "name": "Deep Study",
+          "description": "60 minutes focused",
+          "categoryId": "cat2",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#3b82f6",
+          "reminderTime": null,
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "habit_6227f7a4-4146-4dcc-b889-9a31d1ddf5c4",
+          "name": "Revision",
+          "description": "Review notes",
+          "categoryId": "cat2",
+          "frequency": "weekly",
+          "weeklyDays": [
+            6
+          ],
+          "monthlyDay": null,
+          "color": "#6366f1",
+          "reminderTime": null,
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "habit_69d42aec-7c44-45b8-8b90-21b4feb75d8f",
+          "name": "Meditation",
+          "description": "10 minutes",
+          "categoryId": "cat4",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#a855f7",
+          "reminderTime": null,
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "habit_aad47c74-bcf2-4241-8780-ce122c71a167",
+          "name": "Journal",
+          "description": "1 short reflection",
+          "categoryId": "cat4",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#ec4899",
+          "reminderTime": null,
+          "userId": "akshaysawalgi2309@gmail.com"
+        }
+      ],
+      "entries": [
+        {
+          "id": "entry_b4603d49-70e3-4f44-87f7-efaaee849484",
+          "habitId": "habit_6a897ec3-292c-4a17-859a-c57c9ae9fb9b",
+          "date": "2026-02-05",
+          "status": "done",
+          "note": "",
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "entry_946fb0d9-9128-4744-bf6f-56509e0264a3",
+          "habitId": "habit_844d43f7-f117-4506-a144-f5d2f6693844",
+          "date": "2026-02-06",
+          "status": "done",
+          "note": "",
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "entry_7ef055ea-2e3e-4436-8f7f-420229c830b5",
+          "habitId": "habit_6227f7a4-4146-4dcc-b889-9a31d1ddf5c4",
+          "date": "2026-02-07",
+          "status": "done",
+          "note": "",
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "entry_a0edbae9-8df5-4efc-9518-7ad23ddbf3c5",
+          "habitId": "habit_69d42aec-7c44-45b8-8b90-21b4feb75d8f",
+          "date": "2026-02-08",
+          "status": "done",
+          "note": "",
+          "userId": "akshaysawalgi2309@gmail.com"
+        },
+        {
+          "id": "entry_6d0f7e20-8797-48a3-977e-b6e9ddaac718",
+          "habitId": "habit_aad47c74-bcf2-4241-8780-ce122c71a167",
+          "date": "2026-02-09",
+          "status": "done",
+          "note": "",
+          "userId": "akshaysawalgi2309@gmail.com"
+        }
+      ]
+    },
+    "recevier1@gmail.com": {
+      "categories": [
+        {
+          "id": "cat1",
+          "name": "Health",
+          "color": "#22c55e",
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "cat2",
+          "name": "Study",
+          "color": "#3b82f6",
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "cat3",
+          "name": "Exercise",
+          "color": "#f97316",
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "cat4",
+          "name": "Mind",
+          "color": "#a855f7",
+          "userId": "recevier1@gmail.com"
+        }
+      ],
+      "habits": [
+        {
+          "id": "habit_d6026c56-16fc-495e-89e2-01c0018cf3ea",
+          "name": "Workout",
+          "description": "Strength or cardio",
+          "categoryId": "cat3",
+          "frequency": "weekly",
+          "weeklyDays": [
+            1,
+            3,
+            5
+          ],
+          "monthlyDay": null,
+          "color": "#f97316",
+          "reminderTime": null,
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "habit_6a897ec3-292c-4a17-859a-c57c9ae9fb9b",
+          "name": "Steps 8k",
+          "description": "Walk daily",
+          "categoryId": "cat1",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#22c55e",
+          "reminderTime": null,
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "habit_844d43f7-f117-4506-a144-f5d2f6693844",
+          "name": "Deep Study",
+          "description": "60 minutes focused",
+          "categoryId": "cat2",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#3b82f6",
+          "reminderTime": null,
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "habit_6227f7a4-4146-4dcc-b889-9a31d1ddf5c4",
+          "name": "Revision",
+          "description": "Review notes",
+          "categoryId": "cat2",
+          "frequency": "weekly",
+          "weeklyDays": [
+            6
+          ],
+          "monthlyDay": null,
+          "color": "#6366f1",
+          "reminderTime": null,
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "habit_69d42aec-7c44-45b8-8b90-21b4feb75d8f",
+          "name": "Meditation",
+          "description": "10 minutes",
+          "categoryId": "cat4",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#a855f7",
+          "reminderTime": null,
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "habit_aad47c74-bcf2-4241-8780-ce122c71a167",
+          "name": "Journal",
+          "description": "1 short reflection",
+          "categoryId": "cat4",
+          "frequency": "daily",
+          "weeklyDays": [],
+          "monthlyDay": null,
+          "color": "#ec4899",
+          "reminderTime": null,
+          "userId": "recevier1@gmail.com"
+        }
+      ],
+      "entries": [
+        {
+          "id": "entry_38864c26-0da9-401b-a00d-81b361b0b3eb",
+          "habitId": "habit_6a897ec3-292c-4a17-859a-c57c9ae9fb9b",
+          "date": "2026-02-04",
+          "status": "done",
+          "note": "",
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "entry_1eb0db04-7201-4f8c-aa86-6576d2f1a794",
+          "habitId": "habit_6a897ec3-292c-4a17-859a-c57c9ae9fb9b",
+          "date": "2026-02-05",
+          "status": "done",
+          "note": "",
+          "userId": "recevier1@gmail.com"
+        },
+        {
+          "id": "entry_ed0ef6e6-1d2a-4f8f-83b5-4b8ed0cd3df0",
+          "habitId": "habit_6a897ec3-292c-4a17-859a-c57c9ae9fb9b",
+          "date": "2026-02-06",
+          "status": "done",
+          "note": "",
+          "userId": "recevier1@gmail.com"
+        }
+      ]
+    }
+  }
+}

@@ -102,7 +102,6 @@ export function SettingsPanel() {
       ),
     [categories]
   );
-  }, [categories]);
 
   async function refreshMe() {
     const res = await fetch("/api/auth/me", { credentials: "include" }).catch(() => null);
@@ -168,6 +167,8 @@ export function SettingsPanel() {
   async function doRegister() {
     setBusy(true);
     try {
+      console.log('Attempting registration with:', { email, password: '***' });
+      
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -175,13 +176,24 @@ export function SettingsPanel() {
         credentials: "include",
       });
 
+      console.log('Register response status:', res.status);
+      
       const data = (await res.json().catch(() => null)) as { error?: string } | null;
-      if (!res.ok) throw new Error(data?.error ?? "Registration failed");
+      console.log('Register response data:', data);
+      
+      if (!res.ok) {
+        throw new Error(data?.error ?? "Registration failed");
+      }
 
       await refreshMe();
       await syncAfterAuth();
       toast.success("Account created and synced");
+      
+      // Clear form after successful registration
+      setEmail("");
+      setPassword("");
     } catch (e) {
+      console.error('Registration error:', e);
       toast.error(e instanceof Error ? e.message : "Registration failed");
     } finally {
       setBusy(false);
@@ -191,6 +203,8 @@ export function SettingsPanel() {
   async function doLogin() {
     setBusy(true);
     try {
+      console.log('Attempting login with:', { email, password: '***' });
+      
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -198,13 +212,24 @@ export function SettingsPanel() {
         credentials: "include",
       });
 
+      console.log('Login response status:', res.status);
+      
       const data = (await res.json().catch(() => null)) as { error?: string } | null;
-      if (!res.ok) throw new Error(data?.error ?? "Login failed");
+      console.log('Login response data:', data);
+      
+      if (!res.ok) {
+        throw new Error(data?.error ?? "Login failed");
+      }
 
       await refreshMe();
       await syncAfterAuth();
       toast.success("Logged in and synced");
+      
+      // Clear form after successful login
+      setEmail("");
+      setPassword("");
     } catch (e) {
+      console.error('Login error:', e);
       toast.error(e instanceof Error ? e.message : "Login failed");
     } finally {
       setBusy(false);
@@ -294,40 +319,50 @@ export function SettingsPanel() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
+            autoComplete={isRegistering ? "email" : "username"}
           />
           <Input
             placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
+            autoComplete={isRegistering ? "new-password" : "current-password"}
           />
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          <Button 
-            size="sm" 
-            variant="ghost" 
-            onClick={() => setIsRegistering(!isRegistering)} 
-            disabled={busy}
-          >
-            {isRegistering ? "Login" : "Register"}
-          </Button>
-          <Button size="sm" variant="primary" onClick={isRegistering ? doRegister : doLogin} disabled={busy}>
-            {isRegistering ? "Register" : "Login"}
-          </Button>
-          {meEmail && (
-            <Button size="sm" variant="ghost" onClick={doLogout} disabled={busy}>
-              Logout
-            </Button>
+          {!meEmail ? (
+            <>
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                onClick={() => setIsRegistering(!isRegistering)} 
+                disabled={busy}
+              >
+                {isRegistering ? "Already have account? Login" : "Need account? Register"}
+              </Button>
+              <Button 
+                size="sm" 
+                variant="primary" 
+                onClick={isRegistering ? doRegister : doLogin} 
+                disabled={busy}
+              >
+                {isRegistering ? "Register" : "Login"}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button size="sm" variant="ghost" onClick={doLogout} disabled={busy}>
+                Logout
+              </Button>
+              <Button size="sm" variant="secondary" onClick={doPull} disabled={busy}>
+                Pull
+              </Button>
+              <Button size="sm" variant="secondary" onClick={doPush} disabled={busy}>
+                Push
+              </Button>
+            </>
           )}
-          <Button size="sm" variant="secondary" onClick={doPull} disabled={busy}>
-            Pull
-          </Button>
-          <Button size="sm" variant="secondary" onClick={doPush} disabled={busy}>
-            Push
-          </Button>
         </div>
       </div>
 

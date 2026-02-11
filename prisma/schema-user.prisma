@@ -11,9 +11,8 @@ datasource db {
 model User {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   email   String   @unique
-  passwordHash String   // Store hashed password
+  password String   // Store hashed password
   habits  Json     @default("[]") // Store habits as JSON array
-  sessions Session[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

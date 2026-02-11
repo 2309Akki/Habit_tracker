@@ -1,7 +1,7 @@
 // FIXED Registration API - Your Schema
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { BodySchema, users, sessions, newSessionToken, sessionCookieOptions, sessionCookieName } from '@/lib/simple-store';
+import { BodySchema, users, sessions, newSessionToken, sessionCookieOptions } from '@/lib/simple-store';
 
 export async function POST(req: NextRequest) {
   try {
@@ -48,15 +48,7 @@ export async function POST(req: NextRequest) {
     return res;
     
   } catch (error: any) {
-    console.error('Registration error details:', {
-      message: error.message,
-      stack: error.stack,
-      code: error.code,
-      name: error.name
-    });
-    return NextResponse.json({ 
-      error: "Internal server error",
-      details: error.message 
-    }, { status: 500 });
+    console.error('Registration error:', error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

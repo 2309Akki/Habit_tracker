@@ -88,9 +88,36 @@ export function loadDb(): AppDB {
   }
 }
 
-export function saveDb(db: AppDB) {
-  if (!canUseStorage()) return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+export function saveDb(data: any) {
+  try {
+    const serialized = JSON.stringify(data);
+    
+    // Check if data fits in localStorage (rough estimate)
+    const sizeInBytes = new Blob([serialized]).size;
+    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB limit
+    
+    if (sizeInBytes > maxSizeInBytes) {
+      console.warn('Data too large for localStorage, clearing old data...');
+      // Clear old data if quota exceeded
+      localStorage.removeItem('habit_tracker_db');
+    }
+    
+    localStorage.setItem('habit_tracker_db', serialized);
+  } catch (error: any) {
+    if (error.name === 'QuotaExceededError') {
+      console.error('Storage quota exceeded, clearing old data...');
+      localStorage.removeItem('habit_tracker_db');
+      // Try again with essential data only
+      const essentialData = {
+        categories: data.categories?.slice(0, 10), // Limit categories
+        habits: data.habits?.slice(0, 20), // Limit habits  
+        entries: data.entries?.slice(0, 50) // Limit entries
+      };
+      localStorage.setItem('habit_tracker_db', JSON.stringify(essentialData));
+    } else {
+      console.error('Error saving to localStorage:', error);
+    }
+  }
 }
 
 export function exportDbJson(db: AppDB) {

@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
-import { users, sessions } from "@/lib/simple-store";
+import { prisma } from "@/lib/prisma";
+import {
+  hashSessionToken,
+  newSessionToken,
+  sessionCookieName,
+  sessionCookieOptions,
+  sessionDays,
+} from "@/lib/auth";
 
 const BodySchema = z.object({
   email: z.string().email(),
@@ -30,10 +37,7 @@ export async function POST(req: Request) {
     console.log('Login parsed data:', parsed.data);
 
     const email = parsed.data.email.toLowerCase();
-    const user = await users.get(email);
-    console.log('Looking for user with email:', email);
-    console.log('Found user:', user);
-    
+    const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
@@ -43,20 +47,20 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    // Create session token
-    const token = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    await sessions.set(token, user);
-    
-    console.log('Login successful for:', email);
+    const token = newSessionToken();
+    const tokenHash = hashSessionToken(token);
+    const expiresAt = new Date(Date.now() + sessionDays * 24 * 60 * 60 * 1000);
+
+    await prisma.session.create({
+      data: {
+        userId: user.id,
+        tokenHash,
+        expiresAt,
+      },
+    });
 
     const res = NextResponse.json({ ok: true, user: { email: user.email } });
-    res.cookies.set("ht_session", token, { 
-      httpOnly: true, 
-      sameSite: "lax", 
-      secure: false, 
-      path: "/", 
-      maxAge: 60 * 60 * 24 * 30 
-    });
+    res.cookies.set(sessionCookieName, token, sessionCookieOptions());
     return res;
   } catch (error: any) {
     console.error('Login error:', error.message);

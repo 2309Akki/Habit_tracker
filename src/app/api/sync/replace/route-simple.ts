@@ -1,6 +1,6 @@
-// FIXED Sync Replace API - Your Schema
+// Simple Sync Replace API - Your Schema
 import { NextRequest, NextResponse } from 'next/server';
-import { sessions, userData } from '@/lib/simple-store';
+import { sessions, userData } from '@/lib/user-store-simple';
 
 export async function POST(req: NextRequest) {
   try {

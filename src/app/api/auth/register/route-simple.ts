@@ -1,7 +1,8 @@
-// FIXED Registration API - Your Schema
+// Simple Registration API - Your Schema
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { BodySchema, users, sessions, newSessionToken, sessionCookieOptions, sessionCookieName } from '@/lib/simple-store';
+import { BodySchema } from '@/lib/validation';
+import { users, sessions, newSessionToken, sessionCookieOptions } from '@/lib/user-store-simple';
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
 
     // Create user with your schema
     const user = await users.set(parsed.data.email.toLowerCase(), {
-      passwordHash: passwordHash,
+      password: passwordHash,
       habits: [] // Start with empty habits
     });
 
@@ -40,7 +41,7 @@ export async function POST(req: NextRequest) {
       user: { 
         id: user.id,
         email: user.email,
-        habits: (user as any).habits || []
+        habits: user.habits 
       } 
     });
     
@@ -48,15 +49,7 @@ export async function POST(req: NextRequest) {
     return res;
     
   } catch (error: any) {
-    console.error('Registration error details:', {
-      message: error.message,
-      stack: error.stack,
-      code: error.code,
-      name: error.name
-    });
-    return NextResponse.json({ 
-      error: "Internal server error",
-      details: error.message 
-    }, { status: 500 });
+    console.error('Registration error:', error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

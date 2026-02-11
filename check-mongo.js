@@ -1,0 +1,1 @@
+const { PrismaClient } = require('@prisma/client'); const client = new PrismaClient(); client.connect().then(async () => { const data = await client.userData.findMany(); console.log('MongoDB Data:', JSON.stringify(data, null, 2)); await client.disconnect(); }).catch(console.error);
